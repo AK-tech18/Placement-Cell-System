@@ -1,0 +1,42 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* FULL HEIGHT */
+html, body, #root {
+  height: 100%;
+}
+
+/* FONT */
+body {
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* DARK THEME (DEFAULT) */
+body[data-theme="dark"] {
+  background: #020617;
+  color: #e5e5e5;
+}
+
+/* LIGHT THEME */
+body[data-theme="light"] {
+  background: #f5f5f5;
+  color: #111;
+}
+
+/* VARIABLES */
+:root {
+  --card-bg: #0f172a;
+  --border: rgba(255,255,255,0.08);
+  --accent: #38bdf8;
+}
+
+body[data-theme="light"] {
+  --card-bg: #ffffff;
+  --border: #ddd;
+  --accent: #0ea5e9;
+}

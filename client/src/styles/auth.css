@@ -1,0 +1,272 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ===== WRAPPER ===== */
+
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #020617, #0f172a);
+}
+
+/* ===== CONTAINER ===== */
+
+.container {
+  position: relative;
+  width: 880px;
+  height: 560px;
+  background: #0f172a;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+/* ===== FORMS ===== */
+
+.form-box {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  background: #0f172a;;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 45px;
+  color: #fff;
+  transition: all 0.6s ease-in-out;
+  z-index: 2;
+}
+
+.form-box.login {
+  right: 0;
+}
+
+.form-box.register {
+  left: 0;
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.container.active .form-box.login {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.container.active .form-box.register {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ===== INPUTS ===== */
+
+.input-box {
+  position: relative;
+  margin: 18px 0;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 14px 45px 14px 18px;
+  background: #020617;
+  border: 1px solid #312e81;
+  border-radius: 12px;
+  color: #fff;
+}
+
+.input-box i {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a78bfa;
+}
+
+/* ===== LINKS ===== */
+
+.forgot-link {
+  text-align: right;
+  margin: 6px 0 14px;
+}
+
+.forgot-link a {
+  font-size: 13px;
+  color: #c4b5fd;
+  text-decoration: none;
+}
+
+/* ===== BUTTONS ===== */
+
+.btn {
+  height: 46px;
+  border-radius: 12px;
+  min-width: 120px;  
+  padding: 0 28px;
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  border: none;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.form-box .btn:hover {
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.45);
+}
+
+/* ===== SOCIAL ===== */
+
+.social-text {
+  margin-top: 14px;
+  font-size: 14px;
+  opacity: 0.85;
+  text-align: center;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.social-icons a {
+  border: 1px solid #4338ca;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 0 8px;
+  color: white;
+  font-size: 20px;
+}
+
+.social-icons a:hover {
+  background: #7c3aed;
+}
+
+/* ===== TOGGLE BACKGROUND ===== */
+
+.toggle-box {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.toggle-box::before {
+  content: "";
+  position: absolute;
+
+  width: 300%;
+  height: 100%;
+
+  right: -250%;
+
+  
+  /*background: linear-gradient(135deg, #020617, #0f172a);*/
+  background: linear-gradient(135deg, #020617, #1e293b);
+
+  border-radius: 160px;
+  transition: 1.6s ease-in-out;
+}
+
+.container.active .toggle-box::before {
+  left: 50%;
+}
+
+/* ===== TOGGLE PANELS ===== */
+
+.toggle-panel {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding-top: 175px;
+  gap: 14px;
+  text-align: center;
+
+  z-index: 3;
+  transition: 0.6s ease-in-out;
+  pointer-events: auto; 
+}
+
+.toggle-panel.toggle-left {
+  left: 0;
+}
+
+/* ===== TOGGLE PANEL (RIGHT SIDE) ===== */
+
+.toggle-panel.toggle-right {
+  right: 0;
+  transform: translateX(100%);
+
+  /* 🔥 NEW MODERN BACKGROUND */
+  background: linear-gradient(135deg, #020617, #1e293b);
+  backdrop-filter: blur(20px);
+}
+
+/* ===== ANIMATION STATES ===== */
+
+.container.active .toggle-panel.toggle-left {
+  transform: translateX(-100%);
+}
+
+.container.active .toggle-panel.toggle-right {
+  transform: translateX(0);
+}
+
+/* ===== TEXT STYLE (WELCOME BACK) ===== */
+
+.toggle-panel h1 {
+  font-weight: 700;
+
+  /* 🔥 CONTROLLED RESPONSIVE SIZE */
+  font-size: clamp(28px, 3vw, 42px);
+
+  line-height: 1.2;   /* 🔥 spacing fix */
+
+  background: linear-gradient(90deg, #38bdf8, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.toggle-panel p {
+  font-size: clamp(14px, 1.2vw, 18px);
+  color: #cbd5f5;
+}
+
+/* ===== TOGGLE BUTTON ===== */
+
+.toggle-btn {
+  margin-top: 80px;
+  padding: 16px 80px;
+  font-size: 15px;
+
+  border-radius: 14px;
+  border: none;
+
+  /* 🔥 GRADIENT BUTTON */
+  background: linear-gradient(135deg, #38bdf8, #6366f1);
+  color: #fff;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+/* 🔥 HOVER EFFECT */
+
+.toggle-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+}

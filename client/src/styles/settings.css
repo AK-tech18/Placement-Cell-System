@@ -1,0 +1,99 @@
+.settings-page {
+  padding: 40px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.settings-title {
+  font-size: 28px;
+  margin-bottom: 25px;
+}
+
+.settings-card {
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+}
+
+.settings-card h2 {
+  margin-bottom: 15px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.form-row input,
+.form-row select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: inherit;
+}
+
+.settings-btn {
+  margin-right: 10px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+}
+
+.settings-btn.danger {
+  color: red;
+}
+
+.theme-switch button {
+  margin-right: 10px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+}
+
+.theme-switch .active {
+  background: var(--accent);
+  color: black;
+}
+
+.toggle-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.meta {
+  font-size: 12px;
+  opacity: 0.6;
+}
+.settings-btn {
+  margin-right: 10px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.settings-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.settings-btn.danger {
+  color: #ff4d4f;
+  border-color: #ff4d4f;
+}
+
+.settings-btn.danger:hover {
+  background: #ff4d4f;
+  color: white;
+}
