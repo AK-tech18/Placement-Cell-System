@@ -62,3 +62,53 @@ body[data-theme="light"] .apply-btn {
   border: 1px solid #111;
   color: #111;
 }
+/* 🔥 PROJECTOR MODE (FINAL GLOBAL BOOST) */
+
+/* BASE SCALE */
+body {
+  font-size: 17px;
+}
+
+/* HEADINGS */
+h1 {
+  font-size: 36px !important;
+}
+
+h2 {
+  font-size: 30px !important;
+}
+
+h3 {
+  font-size: 24px !important;
+}
+
+h4 {
+  font-size: 20px !important;
+}
+
+/* TEXT */
+p, span, li, label {
+  font-size: 16px !important;
+}
+
+/* BUTTONS */
+button {
+  font-size: 16px !important;
+  padding: 10px 14px !important;
+}
+
+/* INPUT */
+input, select {
+  font-size: 16px !important;
+  padding: 12px !important;
+}
+
+/* CARDS TEXT */
+.card, .job-card, .settings-card, .student-card {
+  font-size: 16px;
+}
+
+/* TABLE */
+table th, table td {
+  font-size: 16px !important;
+}

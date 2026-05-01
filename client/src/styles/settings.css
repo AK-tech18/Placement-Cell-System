@@ -97,3 +97,44 @@
   background: #ff4d4f;
   color: white;
 }
+/* 🔥 PROJECTOR FONT BOOST (SETTINGS PAGE ONLY) */
+
+.settings-page {
+  font-size: 17px;
+}
+
+.settings-title {
+  font-size: 34px !important;
+}
+
+.settings-card h2 {
+  font-size: 24px !important;
+}
+
+/* FORM LABELS */
+.form-row label {
+  font-size: 16px !important;
+}
+
+/* INPUTS */
+.form-row input,
+.form-row select {
+  font-size: 16px !important;
+  padding: 12px !important;
+}
+
+/* BUTTONS */
+.settings-btn {
+  font-size: 16px !important;
+  padding: 10px 16px !important;
+}
+
+/* TOGGLE */
+.toggle-row {
+  font-size: 16px !important;
+}
+
+/* SMALL TEXT */
+.meta {
+  font-size: 14px !important;
+}

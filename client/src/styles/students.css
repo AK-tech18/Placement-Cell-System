@@ -136,3 +136,55 @@
 .student-card:hover {
   transform: translateY(-6px) scale(1.02);
 }
+/* 🔥 PROJECTOR FONT BOOST (STUDENTS PAGE) */
+
+.students-page {
+  font-size: 17px;
+}
+
+/* TITLE / HEADER */
+.students-header h1 {
+  font-size: 32px !important;
+}
+
+/* SEARCH INPUT */
+.students-header input,
+.search-input {
+  font-size: 16px !important;
+  padding: 14px 16px !important;
+}
+
+/* CARD TEXT */
+.student-card {
+  font-size: 16px !important;
+}
+
+/* NAME / MAIN TEXT */
+.student-card h3 {
+  font-size: 20px !important;
+}
+
+/* META */
+.student-meta {
+  font-size: 15px !important;
+}
+
+/* AVATAR TEXT */
+.avatar {
+  font-size: 16px !important;
+  width: 60px;
+  height: 60px;
+}
+
+/* EMPTY / LOADING */
+.empty,
+.empty-state,
+.loading {
+  font-size: 16px !important;
+}
+
+/* BUTTON */
+.back-btn {
+  font-size: 16px !important;
+  padding: 12px 20px !important;
+}

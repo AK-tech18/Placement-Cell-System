@@ -1177,3 +1177,208 @@ button:hover {
   width: 100% !important;
   height: 100% !important;
 }
+.dashboard {
+  padding: 32px;
+  background: #0b0f19;
+  min-height: 100vh;
+  color: #e5e7eb;
+  font-family: "Inter", sans-serif;
+}
+
+/* 🔥 MOTIVATION */
+.motivation {
+  margin-bottom: 25px;
+}
+
+.motivation-label {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.motivation h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #60a5fa; /* 🔥 highlighted */
+}
+
+/* BUTTONS */
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.primary-btn {
+  background: #2563eb;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+}
+
+.secondary-btn {
+  background: #1f2937;
+  border: 1px solid #374151;
+  padding: 10px 16px;
+  border-radius: 8px;
+  color: #d1d5db;
+  cursor: pointer;
+}
+
+/* STATS */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  background: #111827;
+  border: 1px solid #1f2937;
+  padding: 18px;
+  border-radius: 12px;
+}
+
+.stat-card h4 {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.stat-card h2 {
+  margin-top: 6px;
+  font-size: 22px;
+}
+
+/* INFO */
+.info-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.alert-box {
+  flex: 1;
+  background: #1f2937;
+  border-left: 4px solid #facc15;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.tip-box {
+  flex: 1;
+  background: #1f2937;
+  border-left: 4px solid #38bdf8;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* CARD */
+.card {
+  background: #111827;
+  border: 1px solid #1f2937;
+  padding: 18px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.card h3 {
+  margin-bottom: 12px;
+}
+
+/* JOB */
+.job-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #1f2937;
+}
+
+.job-role {
+  font-weight: 500;
+}
+
+.mini-btn {
+  background: #2563eb;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+/* APPLICATION STATS */
+.app-stats p {
+  display: flex;
+  justify-content: space-between;
+  margin: 6px 0;
+}
+
+.app-stats span {
+  font-weight: bold;
+}
+/* 🔥 PROJECTOR MODE (FONT BOOST ONLY) */
+
+body {
+  font-size: 17px; /* base increase */
+}
+
+/* HEADINGS */
+h1 {
+  font-size: 34px !important;
+}
+
+h2 {
+  font-size: 28px !important;
+}
+
+h3 {
+  font-size: 22px !important;
+}
+
+h4 {
+  font-size: 18px !important;
+}
+
+/* TEXT */
+p, span, li {
+  font-size: 16px !important;
+}
+
+/* BUTTONS */
+button {
+  font-size: 16px !important;
+  padding: 10px 14px !important;
+}
+
+/* INPUTS */
+input {
+  font-size: 16px !important;
+  padding: 12px !important;
+}
+
+/* TABLE */
+.app-table th,
+.app-table td {
+  font-size: 16px !important;
+  padding: 14px !important;
+}
+
+/* CARDS */
+.stat-card h2 {
+  font-size: 32px !important;
+}
+
+.card h3 {
+  font-size: 20px !important;
+}

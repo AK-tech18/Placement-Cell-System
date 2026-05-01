@@ -40,3 +40,46 @@ body[data-theme="light"] {
   --border: #ddd;
   --accent: #0ea5e9;
 }
+/* 🔥 PROJECTOR MODE (GLOBAL FONT BOOST) */
+
+/* BASE FONT */
+body {
+  font-size: 17px;
+}
+
+/* HEADINGS SCALE */
+h1 {
+  font-size: 34px;
+}
+
+h2 {
+  font-size: 28px;
+}
+
+h3 {
+  font-size: 22px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+/* TEXT */
+p, span, li, label {
+  font-size: 16px;
+}
+
+/* BUTTONS */
+button {
+  font-size: 16px;
+}
+
+/* INPUTS */
+input, select {
+  font-size: 16px;
+}
+
+/* SMALL TEXT FIX */
+small {
+  font-size: 14px;
+}

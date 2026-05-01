@@ -31,22 +31,17 @@ export default function Login() {
       if (res.ok && data.token) {
         localStorage.setItem("token", data.token);
 
-        // ✅ FIX: always store user (fallback added)
         localStorage.setItem(
           "user",
           JSON.stringify(data.user || { name: "User", role: "student" })
         );
 
         alert("Login Successful 🚀");
-
-        // 🔥 REDIRECT
         window.location.href = "/dashboard";
-
       } else {
         alert(data.msg || "Invalid credentials");
       }
     } catch (err) {
-      console.error(err);
       alert("Server error");
     }
   };
@@ -112,6 +107,20 @@ export default function Login() {
             </div>
 
             <button type="submit" className="btn">Login</button>
+
+            {/* 🔥 SOCIAL LOGIN */}
+            <p className="social-text">or continue with</p>
+
+            <div className="social-icons">
+              <a href="#" className="google" onClick={() => alert("Google OAuth coming soon")}>
+                <i className="bx bxl-google"></i>
+              </a>
+
+              <a href="#" className="linkedin" onClick={() => alert("LinkedIn OAuth coming soon")}>
+                <i className="bx bxl-linkedin"></i>
+              </a>
+            </div>
+
           </form>
         </div>
 
@@ -154,6 +163,20 @@ export default function Login() {
             </div>
 
             <button type="submit" className="btn">Register</button>
+
+            {/* 🔥 SOCIAL REGISTER */}
+            <p className="social-text">or sign up with</p>
+
+            <div className="social-icons">
+              <a href="#" className="google">
+                <i className="bx bxl-google"></i>
+              </a>
+
+              <a href="#" className="linkedin">
+                <i className="bx bxl-linkedin"></i>
+              </a>
+            </div>
+
           </form>
         </div>
 
