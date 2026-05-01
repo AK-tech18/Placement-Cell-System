@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../styles/auth.css";
 import "boxicons/css/boxicons.min.css";
-import API from "../services/api"; // ✅ IMPORTANT
+import API from "../services/api";
 
 export default function Login() {
   const [active, setActive] = useState(false);
@@ -13,7 +13,7 @@ export default function Login() {
   const [regEmail, setRegEmail] = useState("");
   const [regPassword, setRegPassword] = useState("");
 
-  // 🔐 LOGIN HANDLER
+  // 🔐 LOGIN
   const handleLogin = async () => {
     try {
       const res = await API.post("/auth/login", {
@@ -25,7 +25,6 @@ export default function Login() {
 
       if (data.token) {
         localStorage.setItem("token", data.token);
-
         localStorage.setItem(
           "user",
           JSON.stringify(data.user || { name: "User", role: "student" })
@@ -42,7 +41,7 @@ export default function Login() {
     }
   };
 
-  // 🔐 REGISTER HANDLER
+  // 🔐 REGISTER
   const handleRegister = async () => {
     try {
       const res = await API.post("/auth/register", {
@@ -52,13 +51,11 @@ export default function Login() {
         role: "student",
       });
 
-      const data = res.data;
-
       if (res.status === 200 || res.status === 201) {
         alert("Registered successfully. Please login.");
         setActive(false);
       } else {
-        alert(data.msg || "Registration failed");
+        alert(res.data.msg || "Registration failed");
       }
     } catch (err) {
       console.error(err);
@@ -102,13 +99,21 @@ export default function Login() {
             <p className="social-text">or continue with</p>
 
             <div className="social-icons">
-              <a href="#" className="google" onClick={() => alert("Google OAuth coming soon")}>
+              <button
+                type="button"
+                className="google"
+                onClick={() => alert("Google OAuth coming soon")}
+              >
                 <i className="bx bxl-google"></i>
-              </a>
+              </button>
 
-              <a href="#" className="linkedin" onClick={() => alert("LinkedIn OAuth coming soon")}>
+              <button
+                type="button"
+                className="linkedin"
+                onClick={() => alert("LinkedIn OAuth coming soon")}
+              >
                 <i className="bx bxl-linkedin"></i>
-              </a>
+              </button>
             </div>
           </form>
         </div>
@@ -156,13 +161,13 @@ export default function Login() {
             <p className="social-text">or sign up with</p>
 
             <div className="social-icons">
-              <a href="#" className="google">
+              <button type="button" className="google">
                 <i className="bx bxl-google"></i>
-              </a>
+              </button>
 
-              <a href="#" className="linkedin">
+              <button type="button" className="linkedin">
                 <i className="bx bxl-linkedin"></i>
-              </a>
+              </button>
             </div>
           </form>
         </div>
