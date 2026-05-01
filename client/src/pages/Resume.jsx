@@ -12,14 +12,24 @@ export default function Resume() {
       return;
     }
 
-    const formData = new FormData();
-    formData.append("resume", file);
-
     try {
-      const res = await API.post("/resume/upload", formData);
+      const formData = new FormData();
+      formData.append("resume", file); // ✅ must match backend
+
+      console.log("Uploading file:", file); // 🔥 debug
+
+      const res = await API.post("/resume/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data", // 🔥 IMPORTANT
+        },
+      });
+
+      console.log("Response:", res.data);
+
       setFeedback(res.data.feedback);
     } catch (err) {
-      alert("Upload failed ❌");
+      console.error("Upload Error:", err.response || err);
+      alert(err?.response?.data?.msg || "Upload failed ❌");
     }
   };
 
@@ -30,6 +40,7 @@ export default function Resume() {
       <div className="skills-card">
         <input
           type="file"
+          accept=".pdf" // 🔥 only pdf
           onChange={(e) => setFile(e.target.files[0])}
         />
 
