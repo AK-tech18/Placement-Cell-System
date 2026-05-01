@@ -1382,3 +1382,18 @@ input {
 .card h3 {
   font-size: 20px !important;
 }
+.skill-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+.skill-chip {
+  background: #0f172a;
+  border: 1px solid #38bdf8;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: #38bdf8;
+}
