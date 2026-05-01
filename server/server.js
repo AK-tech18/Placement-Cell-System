@@ -1,41 +1,47 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 
 const app = express();
 
-// 🔥 GLOBAL DEBUG (VERY IMPORTANT)
+// 🔥 DEBUG
 app.use((req, res, next) => {
   console.log("HIT:", req.method, req.url);
   next();
 });
 
-app.use(cors());
+app.use(cors({
+  origin: "*"
+}));
+
 app.use(express.json());
 
-// 🔥 SAFE IMPORTS (avoid inline require issues)
+// 🔥 ROUTES
 const authRoutes = require("./routes/authRoutes");
 const jobRoutes = require("./routes/jobRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 const userRoutes = require("./routes/userRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 
-// 🔥 ROUTES
 app.use("/api/auth", authRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/students", studentRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/admin", adminRoutes);
 
-// 🔥 TEST ROUTE (CONFIRM SERVER RUNNING)
+// 🔥 TEST ROUTES
 app.get("/", (req, res) => {
   res.send("API Running");
 });
 
-// 🔥 EXTRA TEST (CONFIRM JOB ROUTES MOUNTED)
 app.get("/api/jobs/test", (req, res) => {
   res.send("Jobs route working ✅");
 });
 
-app.listen(5000, () => {
-  console.log("🚀 Server running on port 5000");
+// 🔥 PORT FIX
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });

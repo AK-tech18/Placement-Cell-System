@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import API from "../services/api";
 import "../styles/dashboard.css";
 
@@ -10,11 +9,10 @@ export default function Jobs() {
   const [selectedJob, setSelectedJob] = useState(null);
   const navigate = useNavigate();
 
-  const user = JSON.parse(localStorage.getItem("user"));
-
-  // ✅ STRICT student id (IMPORTANT)
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
   const studentId = user?.student_id;
 
+  // ================= INIT =================
   useEffect(() => {
     if (studentId) {
       fetchJobs();
@@ -29,6 +27,7 @@ export default function Jobs() {
       setJobs(res.data || []);
     } catch (err) {
       console.error("Fetch Jobs Error:", err);
+      alert("Failed to load jobs ❌");
     }
   };
 
@@ -46,9 +45,6 @@ export default function Jobs() {
   // ================= APPLY JOB =================
   const applyJob = async (jobId) => {
     try {
-      // 🔥 HARD DEBUG (IMPORTANT)
-      console.log("Applying:", { studentId, jobId });
-
       if (!studentId || !jobId) {
         alert("Missing student/job id ❌");
         return;
@@ -56,21 +52,18 @@ export default function Jobs() {
 
       if (appliedJobs.includes(jobId)) return;
 
-      const res = await axios.post(
-        "http://localhost:5000/api/jobs/apply",
-        {
-          student_id: Number(studentId), // 🔥 ensure number
-          job_id: Number(jobId),
-        }
-      );
+      const res = await API.post("/jobs/apply", {
+        student_id: Number(studentId),
+        job_id: Number(jobId),
+      });
 
-      alert(res.data.msg || "Applied Successfully ✅");
+      alert(res.data?.msg || "Applied Successfully ✅");
 
       setAppliedJobs((prev) => [...prev, jobId]);
       setSelectedJob(null);
     } catch (err) {
-      console.error("Apply Error FULL:", err.response || err);
-      alert("Apply failed ❌ Check console");
+      console.error("Apply Error:", err.response || err);
+      alert("Apply failed ❌");
     }
   };
 
@@ -78,6 +71,7 @@ export default function Jobs() {
     <div className="dashboard">
       <h1 className="page-title">Eligible Jobs 🎯</h1>
 
+      {/* JOB LIST */}
       <div className="job-list">
         {jobs.length === 0 ? (
           <p style={{ opacity: 0.6 }}>No eligible jobs available</p>
@@ -100,6 +94,7 @@ export default function Jobs() {
         <div className="modal-overlay" onClick={() => setSelectedJob(null)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <h2>{selectedJob.title}</h2>
+
             <p><strong>Company:</strong> {selectedJob.company}</p>
             <p><strong>Min CGPA:</strong> {selectedJob.min_cgpa}</p>
             <p><strong>Branches:</strong> {selectedJob.allowed_branches}</p>
@@ -130,4 +125,4 @@ export default function Jobs() {
       </button>
     </div>
   );
-} 
+}

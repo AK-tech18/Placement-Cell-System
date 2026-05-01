@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../services/api"; // ✅ FIXED
 import {
   Bar,
   Pie
@@ -40,19 +40,20 @@ export default function Analytics() {
 
   const fetchAll = async () => {
     try {
-      const s = await axios.get("http://localhost:5000/api/admin/stats");
-      const b = await axios.get("http://localhost:5000/api/admin/branch-stats");
-      const st = await axios.get("http://localhost:5000/api/admin/status-stats");
+      // ✅ FIXED (NO localhost)
+      const s = await API.get("/admin/stats");
+      const b = await API.get("/admin/branch-stats");
+      const st = await API.get("/admin/status-stats");
 
       setStats(s.data || {});
       setBranchData(b.data || []);
       setStatusData(st.data || []);
     } catch (err) {
       console.error("❌ Analytics Error:", err);
+      alert("Failed to load analytics ❌");
     }
   };
 
-  // 🔥 FIXED BAR CHART
   const branchChart = {
     labels: branchData.map((b) => b.branch),
     datasets: [
@@ -61,13 +62,10 @@ export default function Analytics() {
         data: branchData.map((b) => b.placed),
         backgroundColor: "#00d4ff",
         borderRadius: 10,
-        barPercentage: 0.4,
-        categoryPercentage: 0.5,
       },
     ],
   };
 
-  // 🔥 FIXED PIE CHART
   const statusChart = {
     labels: statusData.map((s) => s.status),
     datasets: [
@@ -84,19 +82,14 @@ export default function Analytics() {
     ],
   };
 
-  // 🔥 FINAL OPTIONS (IMPORTANT)
   const options = {
     responsive: true,
     maintainAspectRatio: false,
-
     plugins: {
       legend: {
-        labels: {
-          color: "#fff",
-        },
+        labels: { color: "#fff" },
       },
     },
-
     scales: {
       x: {
         ticks: { color: "#aaa" },
@@ -104,10 +97,7 @@ export default function Analytics() {
       },
       y: {
         beginAtZero: true,
-        ticks: {
-          color: "#aaa",
-          stepSize: 1,
-        },
+        ticks: { color: "#aaa" },
         grid: { color: "rgba(255,255,255,0.05)" },
       },
     },

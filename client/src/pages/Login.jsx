@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../styles/auth.css";
 import "boxicons/css/boxicons.min.css";
+import API from "../services/api"; // ✅ IMPORTANT
 
 export default function Login() {
   const [active, setActive] = useState(false);
@@ -15,20 +16,14 @@ export default function Login() {
   // 🔐 LOGIN HANDLER
   const handleLogin = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: loginEmail,
-          password: loginPassword,
-        }),
+      const res = await API.post("/auth/login", {
+        email: loginEmail,
+        password: loginPassword,
       });
 
-      const data = await res.json();
+      const data = res.data;
 
-      if (res.ok && data.token) {
+      if (data.token) {
         localStorage.setItem("token", data.token);
 
         localStorage.setItem(
@@ -42,36 +37,32 @@ export default function Login() {
         alert(data.msg || "Invalid credentials");
       }
     } catch (err) {
-      alert("Server error");
+      console.error(err);
+      alert("Login failed ❌");
     }
   };
 
   // 🔐 REGISTER HANDLER
   const handleRegister = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: regUsername,
-          email: regEmail,
-          password: regPassword,
-          role: "student"
-        }),
+      const res = await API.post("/auth/register", {
+        name: regUsername,
+        email: regEmail,
+        password: regPassword,
+        role: "student",
       });
 
-      const data = await res.json();
+      const data = res.data;
 
-      if (res.ok) {
+      if (res.status === 200 || res.status === 201) {
         alert("Registered successfully. Please login.");
         setActive(false);
       } else {
         alert(data.msg || "Registration failed");
       }
     } catch (err) {
-      alert("Server error");
+      console.error(err);
+      alert("Registration failed ❌");
     }
   };
 
@@ -108,7 +99,6 @@ export default function Login() {
 
             <button type="submit" className="btn">Login</button>
 
-            {/* 🔥 SOCIAL LOGIN */}
             <p className="social-text">or continue with</p>
 
             <div className="social-icons">
@@ -120,7 +110,6 @@ export default function Login() {
                 <i className="bx bxl-linkedin"></i>
               </a>
             </div>
-
           </form>
         </div>
 
@@ -164,7 +153,6 @@ export default function Login() {
 
             <button type="submit" className="btn">Register</button>
 
-            {/* 🔥 SOCIAL REGISTER */}
             <p className="social-text">or sign up with</p>
 
             <div className="social-icons">
@@ -176,7 +164,6 @@ export default function Login() {
                 <i className="bx bxl-linkedin"></i>
               </a>
             </div>
-
           </form>
         </div>
 

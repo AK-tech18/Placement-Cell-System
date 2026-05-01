@@ -1,11 +1,10 @@
 const mysql = require("mysql2");
+require("dotenv").config(); // 🔥 MUST
 
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "Password@18",
-  database: "placement_db"
-});
+// 🔍 DEBUG (temporary)
+console.log("DB URL:", process.env.MYSQL_PUBLIC_URL);
+
+const db = mysql.createConnection(process.env.MYSQL_PUBLIC_URL);
 
 db.connect((err) => {
   if (err) {
