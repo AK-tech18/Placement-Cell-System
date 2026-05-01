@@ -14,34 +14,38 @@ const upload = multer({
 // 🔥 UPLOAD ROUTE
 router.post("/upload", upload.single("resume"), async (req, res) => {
   try {
-    console.log("FILE:", req.file); // DEBUG
+    // ✅ DEBUG (SERVER FILE ME HI REHNE DO)
+    console.log("FILE RECEIVED:", req.file?.originalname);
+    console.log("SIZE:", req.file?.size);
 
     if (!req.file) {
       return res.status(400).json({ msg: "No file uploaded ❌" });
     }
 
-    // 🔥 FIXED TYPE CHECK (NO mimetype)
+    // 🔥 OPTIONAL PDF CHECK (SAFE)
     if (!req.file.originalname.toLowerCase().endsWith(".pdf")) {
       return res.status(400).json({ msg: "Only PDF file allowed ❌" });
     }
 
-    console.log("MIME:", req.file.mimetype);
-    console.log("NAME:", req.file.originalname);
-
-    let data;
+    // 🔥 SAFE PDF PARSE (NO CRASH)
+    let text = "";
 
     try {
-      data = await pdfParse(req.file.buffer);
-    } catch (pdfErr) {
-      console.error("PDF ERROR:", pdfErr);
-      return res.status(400).json({ msg: "Invalid or corrupted PDF ❌" });
+      const data = await pdfParse(req.file.buffer);
+      text = data.text || "";
+    } catch (err) {
+      console.log("PDF parse failed, using fallback...");
+      text = "";
     }
 
-    if (!data.text || data.text.trim().length === 0) {
-      return res.status(400).json({ msg: "Empty PDF content ❌" });
+    // 🔥 IF TEXT EMPTY → STILL SUCCESS (NO 400)
+    if (!text || text.trim().length === 0) {
+      return res.json({
+        feedback: "Resume uploaded but text not readable (use proper PDF) ⚠️",
+      });
     }
 
-    const text = data.text.toLowerCase();
+    text = text.toLowerCase();
 
     let feedback = [];
 
