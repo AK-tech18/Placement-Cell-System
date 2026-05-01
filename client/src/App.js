@@ -7,7 +7,9 @@ import Settings from "./pages/Settings";
 import Admin from "./pages/Admin";
 import Login from "./pages/Login";
 import Students from "./pages/Students";
-import Analytics from "./pages/Analytics"; // 🔥 USE REAL FILE
+import Analytics from "./pages/Analytics";
+import Skills from "./pages/Skills";
+import Resume from "./pages/Resume"; // 🔥 NEW
 
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -73,6 +75,26 @@ function App() {
           element={
             <ProtectedRoute>
               <Layout><Settings /></Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* 🔥 SKILLS PAGE */}
+        <Route
+          path="/skills"
+          element={
+            <ProtectedRoute>
+              <Layout><Skills /></Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* 🔥 RESUME PAGE */}
+        <Route
+          path="/resume"
+          element={
+            <ProtectedRoute>
+              <Layout><Resume /></Layout>
             </ProtectedRoute>
           }
         />

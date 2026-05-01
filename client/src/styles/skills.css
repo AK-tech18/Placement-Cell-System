@@ -1,0 +1,112 @@
+/* ===== PAGE ===== */
+.skills-page {
+  padding: 40px;
+  max-width: 900px;
+  margin: auto;
+  color: white;
+}
+
+/* ===== TITLE ===== */
+.skills-title {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  letter-spacing: 0.5px;
+}
+
+/* ===== CARD ===== */
+.skills-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(18px);
+  border-radius: 18px;
+  padding: 25px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: 0.3s ease;
+}
+
+.skills-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+
+/* ===== INPUT ===== */
+.skills-input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  background: rgba(255,255,255,0.08);
+  color: white;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.skills-input:focus {
+  background: rgba(255,255,255,0.12);
+  transform: scale(1.01);
+}
+
+/* ===== BUTTON ===== */
+.skills-btn {
+  margin-top: 15px;
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #38bdf8, #6366f1);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.skills-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(56, 189, 248, 0.3);
+}
+
+/* ===== SKILL TAGS ===== */
+.skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.skill-chip {
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.08);
+  font-size: 13px;
+  transition: 0.3s;
+}
+
+.skill-chip:hover {
+  background: var(--accent);
+  color: black;
+  transform: scale(1.05);
+}
+
+/* ===== META ===== */
+.skills-meta {
+  font-size: 13px;
+  opacity: 0.6;
+  margin-bottom: 10px;
+}
+
+/* ===== BACK BUTTON ===== */
+.skills-back {
+  margin-top: 20px;
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: none;
+  background: #27272a;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.skills-back:hover {
+  background: #3f3f46;
+}

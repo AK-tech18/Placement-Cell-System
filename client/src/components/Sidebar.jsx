@@ -57,12 +57,27 @@ export default function Sidebar() {
             📄 Applications
           </li>
 
-          {/* 🔥 ADD THIS (Analytics) */}
           <li
             className={isActive("/analytics")}
             onClick={() => navigate("/analytics")}
           >
             📊 Analytics
+          </li>
+
+          {/* 🔥 NEW: SKILLS */}
+          <li
+            className={isActive("/skills")}
+            onClick={() => navigate("/skills")}
+          >
+            🚀 Skills
+          </li>
+
+          {/* 🔥 NEW: RESUME */}
+          <li
+            className={isActive("/resume")}
+            onClick={() => navigate("/resume")}
+          >
+            📑 Resume
           </li>
 
           <li

@@ -9,19 +9,20 @@ exports.createJob = (req, res) => {
     allowed_branches,
     max_backlogs,
     recruiter_id,
+    required_skills, // 🔥 NEW
   } = req.body;
 
   const sql = `
-    INSERT INTO jobs (title, company, min_cgpa, allowed_branches, max_backlogs, recruiter_id)
-    VALUES (?, ?, ?, ?, ?, ?)
+    INSERT INTO jobs (title, company, min_cgpa, allowed_branches, max_backlogs, recruiter_id, required_skills)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
 
   db.query(
     sql,
-    [title, company, min_cgpa, allowed_branches, max_backlogs, recruiter_id],
+    [title, company, min_cgpa, allowed_branches, max_backlogs, recruiter_id, required_skills || ""],
     (err) => {
       if (err) return res.status(500).json(err);
-      res.json({ msg: "Job Created Successfully" });
+      res.json({ msg: "Job Created Successfully ✅" });
     }
   );
 };
@@ -42,16 +43,30 @@ exports.getEligibleJobs = (req, res) => {
       db.query("SELECT * FROM jobs", (err, jobs) => {
         if (err) return res.status(500).json(err);
 
+        const studentSkills = (student.skills || "").toLowerCase();
+
         const eligibleJobs = jobs.filter((job) => {
           const branches = job.allowed_branches
             .split(",")
             .map((b) => b.trim());
 
-          return (
+          // 🔥 BASIC ELIGIBILITY
+          const basicMatch =
             student.cgpa >= job.min_cgpa &&
             student.backlogs <= job.max_backlogs &&
-            branches.includes(student.branch)
-          );
+            branches.includes(student.branch);
+
+          if (!basicMatch) return false;
+
+          // 🔥 SKILLS MATCH (NEW)
+          if (!job.required_skills || job.required_skills === "") return true;
+
+          return job.required_skills
+            .toLowerCase()
+            .split(",")
+            .some((skill) =>
+              studentSkills.includes(skill.trim())
+            );
         });
 
         res.json(eligibleJobs);
@@ -87,7 +102,7 @@ exports.applyJob = (req, res) => {
 
     db.query(insertSql, [student_id, job_id], (err) => {
       if (err) return res.status(500).json(err);
-      res.json({ msg: "Applied Successfully" });
+      res.json({ msg: "Applied Successfully ✅" });
     });
   });
 };
@@ -97,7 +112,7 @@ exports.getAppliedJobs = (req, res) => {
   const student_id = req.params.id;
 
   const sql = `
-    SELECT j.id as job_id, j.title, j.company, a.status
+    SELECT j.id as job_id, j.title, j.company, j.required_skills, a.status
     FROM applications a
     JOIN jobs j ON a.job_id = j.id
     WHERE a.student_id = ?
