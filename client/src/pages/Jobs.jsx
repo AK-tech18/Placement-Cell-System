@@ -12,40 +12,31 @@ export default function Jobs() {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   const studentId = user?.student_id;
 
-  // ================= FETCH JOBS =================
-  const fetchJobs = async () => {
-    try {
-      const res = await API.get(`/jobs/eligible/${studentId}`);
-      setJobs(res.data || []);
-    } catch (err) {
-      if (err.code !== "ERR_CANCELED") {
-        console.error("Fetch Jobs Error:", err);
-      }
-    }
-  };
-
-  // ================= FETCH APPLIED =================
-  const fetchAppliedJobs = async () => {
-    try {
-      const res = await API.get(`/jobs/applied/${studentId}`);
-      const appliedIds = (res.data || []).map((job) => job.job_id);
-      setAppliedJobs(appliedIds);
-    } catch (err) {
-      if (err.code !== "ERR_CANCELED") {
-        console.error("Fetch Applied Jobs Error:", err);
-      }
-    }
-  };
-
   // ================= INIT =================
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (!studentId) return;
 
-    fetchJobs();
-    fetchAppliedJobs();
+    const fetchData = async () => {
+      try {
+        // 🔥 FETCH JOBS
+        const jobsRes = await API.get(`/jobs/eligible/${studentId}`);
+        setJobs(jobsRes.data || []);
 
-  }, [studentId]); // ✅ FIXED
+        // 🔥 FETCH APPLIED
+        const appliedRes = await API.get(`/jobs/applied/${studentId}`);
+        const appliedIds = (appliedRes.data || []).map((job) => job.job_id);
+        setAppliedJobs(appliedIds);
+
+      } catch (err) {
+        if (err.code !== "ERR_CANCELED") {
+          console.error("Jobs Fetch Error:", err);
+        }
+      }
+    };
+
+    fetchData();
+
+  }, [studentId]); // ✅ NO ESLINT ERROR
 
   // ================= APPLY JOB =================
   const applyJob = async (jobId) => {
@@ -66,6 +57,7 @@ export default function Jobs() {
 
       setAppliedJobs((prev) => [...prev, jobId]);
       setSelectedJob(null);
+
     } catch (err) {
       console.error("Apply Error:", err.response || err);
       alert("Apply failed ❌");
@@ -76,6 +68,7 @@ export default function Jobs() {
     <div className="dashboard">
       <h1 className="page-title">Eligible Jobs 🎯</h1>
 
+      {/* JOB LIST */}
       <div className="job-list">
         {jobs.length === 0 ? (
           <p style={{ opacity: 0.6 }}>No eligible jobs available</p>
@@ -93,6 +86,7 @@ export default function Jobs() {
         )}
       </div>
 
+      {/* MODAL */}
       {selectedJob && (
         <div className="modal-overlay" onClick={() => setSelectedJob(null)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
@@ -103,6 +97,7 @@ export default function Jobs() {
             <p><strong>Branches:</strong> {selectedJob.allowed_branches}</p>
             <p><strong>Max Backlogs:</strong> {selectedJob.max_backlogs}</p>
 
+            {/* 🔥 SKILLS */}
             <p><strong>Required Skills:</strong></p>
 
             <div className="skill-tags">
