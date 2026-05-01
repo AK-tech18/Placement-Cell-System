@@ -38,13 +38,14 @@ export default function Jobs() {
   };
 
   // ================= INIT =================
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (!studentId) return;
 
     fetchJobs();
     fetchAppliedJobs();
 
-  }, [studentId]); // ✅ CLEAN
+  }, [studentId]); // ✅ FIXED
 
   // ================= APPLY JOB =================
   const applyJob = async (jobId) => {
@@ -102,7 +103,6 @@ export default function Jobs() {
             <p><strong>Branches:</strong> {selectedJob.allowed_branches}</p>
             <p><strong>Max Backlogs:</strong> {selectedJob.max_backlogs}</p>
 
-            {/* 🔥 SKILLS */}
             <p><strong>Required Skills:</strong></p>
 
             <div className="skill-tags">
