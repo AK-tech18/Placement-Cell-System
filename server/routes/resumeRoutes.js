@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require("multer");
 const pdfParse = require("pdf-parse");
 
-// 🔥 SAFE STORAGE + LIMIT
+// 🔥 STORAGE
 const storage = multer.memoryStorage();
 
 const upload = multer({
@@ -20,12 +20,16 @@ router.post("/upload", upload.single("resume"), async (req, res) => {
       return res.status(400).json({ msg: "No file uploaded ❌" });
     }
 
-    // 🔥 TYPE CHECK
-    if (req.file.mimetype !== "application/pdf") {
-      return res.status(400).json({ msg: "Only PDF allowed ❌" });
+    // 🔥 FIXED TYPE CHECK (NO mimetype)
+    if (!req.file.originalname.toLowerCase().endsWith(".pdf")) {
+      return res.status(400).json({ msg: "Only PDF file allowed ❌" });
     }
 
+    console.log("MIME:", req.file.mimetype);
+    console.log("NAME:", req.file.originalname);
+
     let data;
+
     try {
       data = await pdfParse(req.file.buffer);
     } catch (pdfErr) {
