@@ -5,6 +5,7 @@ import "../styles/skills.css";
 export default function Resume() {
   const [file, setFile] = useState(null);
   const [feedback, setFeedback] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const uploadResume = async () => {
     if (!file) {
@@ -13,16 +14,15 @@ export default function Resume() {
     }
 
     try {
+      setLoading(true);
+
       const formData = new FormData();
       formData.append("resume", file); // ✅ must match backend
 
-      console.log("Uploading file:", file); // 🔥 debug
+      console.log("Uploading file:", file);
 
-      const res = await API.post("/resume/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data", // 🔥 IMPORTANT
-        },
-      });
+      // ❌ DO NOT SET HEADERS MANUALLY
+      const res = await API.post("/resume/upload", formData);
 
       console.log("Response:", res.data);
 
@@ -30,6 +30,8 @@ export default function Resume() {
     } catch (err) {
       console.error("Upload Error:", err.response || err);
       alert(err?.response?.data?.msg || "Upload failed ❌");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -40,12 +42,16 @@ export default function Resume() {
       <div className="skills-card">
         <input
           type="file"
-          accept=".pdf" // 🔥 only pdf
+          accept=".pdf" // ✅ only PDF
           onChange={(e) => setFile(e.target.files[0])}
         />
 
-        <button className="skills-btn" onClick={uploadResume}>
-          Upload Resume
+        <button
+          className="skills-btn"
+          onClick={uploadResume}
+          disabled={loading}
+        >
+          {loading ? "Uploading..." : "Upload Resume"}
         </button>
       </div>
 
