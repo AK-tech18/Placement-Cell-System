@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../services/api";
 import "../styles/dashboard.css";
@@ -12,16 +12,8 @@ export default function Jobs() {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   const studentId = user?.student_id;
 
-  // ================= INIT =================
-  useEffect(() => {
-    if (studentId) {
-      fetchJobs();
-      fetchAppliedJobs();
-    }
-  }, [studentId]);
-
   // ================= FETCH JOBS =================
-  const fetchJobs = async () => {
+  const fetchJobs = useCallback(async () => {
     try {
       const res = await API.get(`/jobs/eligible/${studentId}`);
       setJobs(res.data || []);
@@ -29,10 +21,10 @@ export default function Jobs() {
       console.error("Fetch Jobs Error:", err);
       alert("Failed to load jobs ❌");
     }
-  };
+  }, [studentId]);
 
   // ================= FETCH APPLIED =================
-  const fetchAppliedJobs = async () => {
+  const fetchAppliedJobs = useCallback(async () => {
     try {
       const res = await API.get(`/jobs/applied/${studentId}`);
       const appliedIds = (res.data || []).map((job) => job.job_id);
@@ -40,7 +32,15 @@ export default function Jobs() {
     } catch (err) {
       console.error("Fetch Applied Jobs Error:", err);
     }
-  };
+  }, [studentId]);
+
+  // ================= INIT =================
+  useEffect(() => {
+    if (studentId) {
+      fetchJobs();
+      fetchAppliedJobs();
+    }
+  }, [studentId, fetchJobs, fetchAppliedJobs]); // ✅ FIXED
 
   // ================= APPLY JOB =================
   const applyJob = async (jobId) => {
